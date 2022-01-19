@@ -14,7 +14,7 @@ export default function InterviewerList(props) {
       name={interviewer.name}
       avatar={interviewer.avatar}
       />
-  })
+  });
 
   return (
     <section className="interviewers">
