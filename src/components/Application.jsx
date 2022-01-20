@@ -13,7 +13,9 @@ export default function Application(props) {
     days: [],
     appointments: {}
   });
-
+  
+  const { day, days } = state;
+  
   const setDay = day => setState({ ...state, day});
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function Application(props) {
     })
   }, []);
 
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const dailyAppointments = getAppointmentsForDay(state, day);
 
   const parsedAppointments = dailyAppointments.map(appt => {
     return <Appointment key={appt.id} {...appt} />
@@ -46,8 +48,8 @@ export default function Application(props) {
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
           <DayList
-            days={state.days}
-            value={state.day}
+            days={days}
+            value={day}
             onChange={setDay}
           />
         </nav>
