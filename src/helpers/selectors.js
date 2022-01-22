@@ -6,6 +6,14 @@ const getAppointmentsForDay = (state, day) => {
   }) : matchingDay;
 };
 
+const getInterviewersForDay = (state, day) => {
+  const matchingDay = state.days.filter(oneDay => oneDay.name === day)[0] || [];
+  
+  return matchingDay.interviewers ? matchingDay.interviewers.map(interviewerId => {
+    return state.interviewers[interviewerId];
+  }) : matchingDay;
+};
+
 const getInterview = (state, interview) => {
   if (interview) {
     return {
@@ -16,4 +24,4 @@ const getInterview = (state, interview) => {
   return null;
 };
 
-export { getAppointmentsForDay, getInterview };
+export { getAppointmentsForDay, getInterviewersForDay, getInterview };
