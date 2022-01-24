@@ -13,7 +13,7 @@ const useApplicationData = () => {
 
   const updateSpots = (id, action = "book") => {
     const days = [...state.days];
-    const appointments = {...state.appointments};
+    const appointments = { ...state.appointments };
     days.forEach(day => {
       day.appointments.forEach(apptId => {
         if (apptId === id) {
@@ -41,25 +41,18 @@ const useApplicationData = () => {
     };
     const days = updateSpots(id);
 
-    return axios.put(`/api/appointments/${id}`, appointment).then(res => {
-      console.log(res);
+    return axios.put(`/api/appointments/${id}`, appointment).then(() => {
       setState(prevState => ({ ...prevState, appointments, days }));
     });
   };
 
   const cancelInterview = id => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: null,
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
+    const appointments = { ...state.appointments };
+    appointments[id] = { id, time: appointments[id].time, interview: null };
+
     const days = updateSpots(id, "cancel");
 
-    return axios.delete(`/api/appointments/${id}`).then(res => {
-      console.log(res);
+    return axios.delete(`/api/appointments/${id}`).then(() => {
       setState(prevState => ({ ...prevState, appointments, days }));
     });
   };
