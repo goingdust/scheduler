@@ -22,21 +22,22 @@ export default function Application(props) {
   const setDay = day => setState({ ...state, day });
 
   function bookInterview(id, interview) {
-    console.log(id, interview);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
     };
-    console.log('new appointment', appointment);
     const appointments = {
       ...state.appointments,
       [id]: appointment,
     };
-    console.log('new appointments', appointments);
-    setState({
-      ...state,
-      appointments,
-    });
+
+    return axios
+      .put(`/api/appointments/${id}`, appointment)
+      .then(res => {
+        console.log(res);
+        setState(prevState => ({ ...prevState, appointments }));
+      })
+      .catch(err => console.log(err));
   }
 
   useEffect(() => {
