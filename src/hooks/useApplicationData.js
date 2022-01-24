@@ -13,13 +13,14 @@ const useApplicationData = () => {
 
   const updateSpots = (id, action = "book") => {
     const days = [...state.days];
+    const appointments = {...state.appointments};
     days.forEach(day => {
       day.appointments.forEach(apptId => {
         if (apptId === id) {
           let spots = day.spots;
           if (action === "cancel") {
             spots += 1;
-          } else {
+          } else if (appointments[id].interview === null) {
             spots -= 1;
           }
           day.spots = spots;
