@@ -78,10 +78,10 @@ export default {
     };
 
     const responses = {
-      "/api/days": daysResponse,
-      "/api/appointments": appointmentsResponse,
-      "/api/interviewers": interviewersResponse,
-      default: console.log("That url doesn't exist exist in the server"),
+      "/api/days": daysResponse(),
+      "/api/appointments": appointmentsResponse(),
+      "/api/interviewers": interviewersResponse(),
+      default: "That url doesn't exist exist in the server",
     };
 
     return responses[url] || responses.default;
