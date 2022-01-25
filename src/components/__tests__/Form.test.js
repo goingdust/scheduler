@@ -87,6 +87,7 @@ describe("Form", () => {
       <Form
         interviewers={interviewers}
         student="Lydia Miller-Jones"
+        interviewer={!null}
         onSave={onSave}
         onCancel={onCancel}
       />
