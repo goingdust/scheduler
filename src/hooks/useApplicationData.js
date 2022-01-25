@@ -9,6 +9,45 @@ const useApplicationData = () => {
     interviewers: {},
   });
 
+
+  // const [state, dispatch] = useReducer(reducer, 0);
+
+  // const SET_DAY = "SET_DAY";
+  // const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
+  // const SET_INTERVIEW = "SET_INTERVIEW";
+
+  // const reducers = {
+  //   setDay(state, action) {},
+  //   setAppData(state, action) {},
+  //   setInterview(state, action) {},
+  //   default() {
+  //     throw new Error(
+  //       `Tried to reduce with unsupported action type: ${action.type}`
+  //     );
+  //   }
+  // };
+
+  // const reducer = (state, action) => {
+  //   return reducers[action.type](state, action) || reducers.default();
+  // }
+
+  // // function reducer(state, action) {
+  // //   switch (action.type) {
+  // //     case SET_DAY:
+  // //       return { /* insert logic */ }
+  // //     case SET_APPLICATION_DATA:
+  // //       return { /* insert logic */ }
+  // //     case SET_INTERVIEW: {
+  // //       return /* insert logic */
+  // //     }
+  // //     default:
+  // //       throw new Error(
+  // //         `Tried to reduce with unsupported action type: ${action.type}`
+  // //       );
+  // //   }
+  // }
+
+
   const setDay = day => setState({ ...state, day });
 
   const updateSpots = (id, action = "book") => {
