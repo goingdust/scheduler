@@ -6,9 +6,15 @@ import "components/Button.scss";
 export default function Button(props) {
   const { confirm, danger, onClick, disabled, children } = props;
 
-  const buttonClass = classNames('button', {'button--confirm': confirm}, {'button--danger': danger});
-  
+  const buttonClass = classNames(
+    "button",
+    { "button--confirm": confirm },
+    { "button--danger": danger }
+  );
+
   return (
-     <button disabled={disabled} onClick={onClick} className={buttonClass}>{children}</button>
-   );
+    <button disabled={disabled} onClick={onClick} className={buttonClass}>
+      {children}
+    </button>
+  );
 }

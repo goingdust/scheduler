@@ -24,9 +24,9 @@ export default function Appointment(props) {
   const ERROR_DELETE = "ERROR_DELETE";
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
-  const save = (name, interviewer) => {
+  const save = (student, interviewer) => {
     const interview = {
-      student: name,
+      student,
       interviewer,
     };
     transition(SAVING);
