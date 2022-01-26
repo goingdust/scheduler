@@ -39,9 +39,9 @@ const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment,
     };
-    const days = updateSpots(id);
 
     return axios.put(`/api/appointments/${id}`, appointment).then(() => {
+      const days = updateSpots(id);
       setState(prevState => ({ ...prevState, appointments, days }));
     });
   };
@@ -50,9 +50,8 @@ const useApplicationData = () => {
     const appointments = { ...state.appointments };
     appointments[id] = { id, time: appointments[id].time, interview: null };
 
-    const days = updateSpots(id, "cancel");
-
     return axios.delete(`/api/appointments/${id}`).then(() => {
+      const days = updateSpots(id, "cancel");
       setState(prevState => ({ ...prevState, appointments, days }));
     });
   };
