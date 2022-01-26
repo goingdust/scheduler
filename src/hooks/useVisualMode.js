@@ -2,25 +2,26 @@ import { useState } from "react";
 
 const useVisualMode = initialMode => {
   const [mode, setMode] = useState(initialMode);
+  // eslint-disable-next-line
   const [history, setHistory] = useState([initialMode]);
 
   const transition = (newMode, replace = false) => {
-    setHistory(prev => {
+    setHistory(prevState => {
       if (!replace) {
-        prev.push(newMode);
+        prevState.push(newMode);
       }
       setMode(newMode);
-      return prev;
+      return prevState;
     });
   };
 
   const back = () => {
-    setHistory(prev => {
-      if (prev.length >= 2) {
-        prev.pop();
-        setMode(prev[prev.length - 1]);
+    setHistory(prevState => {
+      if (prevState.length >= 2) {
+        prevState.pop();
+        setMode(prevState[prevState.length - 1]);
       }
-      return prev;
+      return prevState;
     });
   };
 
