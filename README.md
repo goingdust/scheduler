@@ -17,19 +17,19 @@ The Interview Scheduler is a single-page React application that allows users to 
 
 ### List of day's appointments
 
-*Screenshot
+!["List of day's appointments"](https://github.com/goingdust/scheduler/blob/main/docs/appointments-list.png)
 
 *User can click on any of the days in the sidebar and see each list of appointments available*
 
 ### Booking a new appointment
 
-*Screenshot
+!["Booking/editing an appointment"](https://github.com/goingdust/scheduler/blob/main/docs/appointment-form.png)
 
 *User has to enter a name AND click on an interviewer for the appointment to be successfully booked*
 
 ### Cancel confirmation
 
-*Screenshot
+!["Cancel appointment confirmation"](https://github.com/goingdust/scheduler/blob/main/docs/confirmation.png)
 
 *If user clicks cancel, the appointment remains booked and goes back to showing the scheduled user and interviewer*
 
