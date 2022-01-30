@@ -1,54 +1,44 @@
-import { useState, useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import axios from "axios";
 
+const SET_DAY = "SET_DAY";
+const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
+const SET_INTERVIEW = "SET_INTERVIEW";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case SET_DAY:
+      return { ...state, day: action.value };
+    case SET_APPLICATION_DATA:
+      return {
+        ...state,
+        days: action.value.days,
+        appointments: action.value.appointments,
+        interviewers: action.value.interviewers
+      };
+    case SET_INTERVIEW: {
+      return {
+        ...state,
+        appointments: action.value.appointments,
+        days: action.value.days,
+      };
+    }
+    default:
+      throw new Error(
+        `Tried to reduce with unsupported action type: ${action.type}`
+      );
+  }
+};
+
 const useApplicationData = () => {
-  const [state, setState] = useState({
+  const [state, dispatch] = useReducer(reducer, {
     day: "Monday",
     days: [],
     appointments: {},
     interviewers: {},
   });
 
-
-  // const [state, dispatch] = useReducer(reducer, 0);
-
-  // const SET_DAY = "SET_DAY";
-  // const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
-  // const SET_INTERVIEW = "SET_INTERVIEW";
-
-  // const reducers = {
-  //   setDay(state, action) {},
-  //   setAppData(state, action) {},
-  //   setInterview(state, action) {},
-  //   default() {
-  //     throw new Error(
-  //       `Tried to reduce with unsupported action type: ${action.type}`
-  //     );
-  //   }
-  // };
-
-  // const reducer = (state, action) => {
-  //   return reducers[action.type](state, action) || reducers.default();
-  // }
-
-  // // function reducer(state, action) {
-  // //   switch (action.type) {
-  // //     case SET_DAY:
-  // //       return { /* insert logic */ }
-  // //     case SET_APPLICATION_DATA:
-  // //       return { /* insert logic */ }
-  // //     case SET_INTERVIEW: {
-  // //       return /* insert logic */
-  // //     }
-  // //     default:
-  // //       throw new Error(
-  // //         `Tried to reduce with unsupported action type: ${action.type}`
-  // //       );
-  // //   }
-  // }
-
-
-  const setDay = day => setState({ ...state, day });
+  const setDay = day => dispatch({ type: "SET_DAY", value: day });
 
   const updateSpots = (state, appts) => {
     const days = JSON.parse(JSON.stringify(state.days));
@@ -80,7 +70,7 @@ const useApplicationData = () => {
     const days = updateSpots(state, appointments);
 
     return axios.put(`/api/appointments/${id}`, appointment).then(() => {
-      setState(prevState => ({ ...prevState, appointments, days }));
+      dispatch({ type: "SET_INTERVIEW", value: { appointments, days } });
     });
   };
 
@@ -90,7 +80,7 @@ const useApplicationData = () => {
     const days = updateSpots(state, appointments);
 
     return axios.delete(`/api/appointments/${id}`).then(() => {
-      setState(prevState => ({ ...prevState, appointments, days }));
+      dispatch({ type: "SET_INTERVIEW", value: { appointments, days } });
     });
   };
 
@@ -104,12 +94,10 @@ const useApplicationData = () => {
         const days = all[0].data;
         const appointments = all[1].data;
         const interviewers = all[2].data;
-        setState(prevState => ({
-          ...prevState,
-          days,
-          appointments,
-          interviewers,
-        }));
+        dispatch({
+          type: "SET_APPLICATION_DATA",
+          value: { days, appointments, interviewers },
+        });
       })
       .catch(err => {
         console.log(err);
